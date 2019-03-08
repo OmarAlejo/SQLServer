@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace Venta_Renta_Vehículos
 {
@@ -43,11 +44,19 @@ namespace Venta_Renta_Vehículos
             int respuesta = 0;
             Conexion cn = new Conexion();
             SqlConnection conn = cn.ConectaBD();
-            SqlCommand comando = new SqlCommand(string.Format("INSERT INTO Empleado.Empleado" +
-                "(IdTipo,PrimerNombre,SegundoNombre,ApellidoPaterno,ApellidoMaterno, Domicilio, Telefono)" +
-                "values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
-                em.idTipo, em.PrimerNombre, em.SegundoNombre, em.ApellidoPaterno, em.ApellidoMaterno, em.Domicilio, em.Telefono), conn);
-            respuesta = comando.ExecuteNonQuery();
+            try
+            {
+                SqlCommand comando = new SqlCommand(string.Format("INSERT INTO Empleado.Empleado" +
+                    "(IdTipo,PrimerNombre,SegundoNombre,ApellidoPaterno,ApellidoMaterno, Domicilio, Telefono)" +
+                    "values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
+                    em.idTipo, em.PrimerNombre, em.SegundoNombre, em.ApellidoPaterno, em.ApellidoMaterno, em.Domicilio, em.Telefono), conn);
+                respuesta = comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                respuesta = 0;
+            }
             cn.CierraConexionBD();
             return respuesta;
         }
@@ -57,13 +66,21 @@ namespace Venta_Renta_Vehículos
             int respuesta = 0;
             Conexion cn = new Conexion();
             SqlConnection conn = cn.ConectaBD();
-            SqlCommand comando = new SqlCommand(string.Format("UPDATE Empleado.Empleado SET IdTipo = '"
-                + em.idTipo + "', PrimerNombre='" + em.PrimerNombre + "', SegundoNombre = '" + em.SegundoNombre +
-                "', ApellidoPaterno='" + em.ApellidoPaterno +
-                "', ApellidoMaterno='" + em.ApellidoMaterno +
-                "', Domicilio='" + em.Domicilio +
-                "', Telefono='" + em.Telefono + "' WHERE IdEmpleado  = " + em.id), conn);
-            respuesta = comando.ExecuteNonQuery();
+            try
+            {
+                SqlCommand comando = new SqlCommand(string.Format("UPDATE Empleado.Empleado SET IdTipo = '"
+                    + em.idTipo + "', PrimerNombre='" + em.PrimerNombre + "', SegundoNombre = '" + em.SegundoNombre +
+                    "', ApellidoPaterno='" + em.ApellidoPaterno +
+                    "', ApellidoMaterno='" + em.ApellidoMaterno +
+                    "', Domicilio='" + em.Domicilio +
+                    "', Telefono='" + em.Telefono + "' WHERE IdEmpleado  = " + em.id), conn);
+                respuesta = comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                respuesta = 0;
+            }
             cn.CierraConexionBD();
             return respuesta;
         }
@@ -73,9 +90,17 @@ namespace Venta_Renta_Vehículos
             int respuesta = 0;
             Conexion cn = new Conexion();
             SqlConnection conn = cn.ConectaBD();
-            SqlCommand comando = new SqlCommand(string.Format("DELETE FROM Empleado.Empleado WHERE IdEmpleado = "
-                + em.id), conn);
-            respuesta = comando.ExecuteNonQuery();
+            try
+            {
+                SqlCommand comando = new SqlCommand(string.Format("DELETE FROM Empleado.Empleado WHERE IdEmpleado = "
+                    + em.id), conn);
+                respuesta = comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                respuesta = 0;
+            }
             cn.CierraConexionBD();
             return respuesta;
         }

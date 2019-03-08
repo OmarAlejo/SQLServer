@@ -49,7 +49,20 @@ namespace Venta_Renta_Vehículos
             this.tabPage5.BackColor = System.Drawing.ColorTranslator.FromHtml("#1E646D");
             this.tabPage6.BackColor = System.Drawing.ColorTranslator.FromHtml("#1E646D");
             this.tabPage7.BackColor = System.Drawing.ColorTranslator.FromHtml("#1E646D");
-            
+            buttonModificarC.Enabled = false;
+            buttonEliminarC.Enabled = false;
+            buttonModificarE.Enabled = false;
+            buttonEliminarE.Enabled = false;
+            buttonModificarEE.Enabled = false;
+            buttonEliminarEE.Enabled = false;
+            buttonModificarR.Enabled = false;
+            buttonEliminarR.Enabled = false;
+            buttonModificarT.Enabled = false;
+            buttonEliminarT.Enabled = false;
+            buttonModificarV.Enabled = false;
+            buttonEliminarV.Enabled = false;
+            buttonModificarVV.Enabled = false;
+            buttonEliminarVV.Enabled = false;
         }
 
         private void buttonAgregarV_Click(object sender, EventArgs e)
@@ -520,6 +533,21 @@ namespace Venta_Renta_Vehículos
 
         private void Clear()
         {
+            buttonModificarC.Enabled = false;
+            buttonEliminarC.Enabled = false;
+            buttonModificarE.Enabled = false;
+            buttonEliminarE.Enabled = false;
+            buttonModificarEE.Enabled = false;
+            buttonEliminarEE.Enabled = false;
+            buttonModificarR.Enabled = false;
+            buttonEliminarR.Enabled = false;
+            buttonModificarT.Enabled = false;
+            buttonEliminarT.Enabled = false;
+            buttonModificarV.Enabled = false;
+            buttonEliminarV.Enabled = false;
+            buttonModificarVV.Enabled = false;
+            buttonEliminarVV.Enabled = false;
+
             textBoxPlacas.Text="";
             textBoxMarca.Text="";
             textBoxModelo.Text="";
@@ -580,6 +608,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView7_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarEE.Enabled = true;
+            buttonEliminarEE.Enabled = true;
             entrega.id = Int64.Parse(dataGridView7.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxIdRenta.Text = dataGridView7.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxIdEmpleadoE.Text = dataGridView7.Rows[e.RowIndex].Cells[2].Value.ToString();
@@ -593,6 +623,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView6_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarR.Enabled = true;
+            buttonEliminarR.Enabled = true;
             renta.id = Int64.Parse(dataGridView6.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBox3.Text = dataGridView6.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBox2.Text = dataGridView6.Rows[e.RowIndex].Cells[2].Value.ToString();
@@ -607,6 +639,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView5_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarVV.Enabled = true;
+            buttonEliminarVV.Enabled = true;
             venta.id = Int64.Parse(dataGridView5.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxIdVehiculoV.Text = dataGridView5.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxIdClienteV.Text = dataGridView5.Rows[e.RowIndex].Cells[2].Value.ToString();
@@ -618,6 +652,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView4_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarC.Enabled = true;
+            buttonEliminarC.Enabled = true;
             cliente.id = Int64.Parse(dataGridView4.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxPNombreC.Text = dataGridView4.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxSNombreC.Text = dataGridView4.Rows[e.RowIndex].Cells[2].Value.ToString();
@@ -631,6 +667,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView3_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarT.Enabled = true;
+            buttonEliminarT.Enabled = true;
             tipo.id = Int64.Parse(dataGridView3.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxTipo.Text = dataGridView3.Rows[e.RowIndex].Cells[2].Value.ToString();
             textBoxSueldo.Text = dataGridView3.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -638,6 +676,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView2_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarE.Enabled = true;
+            buttonEliminarE.Enabled = true;
             empleado.id = Int64.Parse(dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxPNombreE.Text = dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString();
             textBoxSNombreE.Text = dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -650,6 +690,8 @@ namespace Venta_Renta_Vehículos
 
         private void dataGridView1_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            buttonModificarV.Enabled = true;
+            buttonEliminarV.Enabled = true;
             vehiculo.id = Int64.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxPlacas.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxMarca.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace Venta_Renta_Vehículos
 {
@@ -54,12 +55,20 @@ namespace Venta_Renta_Vehículos
             int respuesta = 0;
             Conexion cn = new Conexion();
             SqlConnection conn = cn.ConectaBD();
-            SqlCommand comando = new SqlCommand(string.Format("INSERT INTO Servicios.Vehiculo" +
-                "(Placas,Marca,Modelo,Año,Descripcion, NumSeguro, Vendido, PrecioVenta, Disponible, PrecioRenta)" +
-                "values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", 
-                veh.placas, veh.marca, veh.modelo, veh.anio, veh.descripcion, veh.numSeguro, veh.vendido, veh.precioVenta,
-                veh.disponible, veh.precioRenta), conn);
-            respuesta = comando.ExecuteNonQuery();
+            try
+            {
+                SqlCommand comando = new SqlCommand(string.Format("INSERT INTO Servicios.Vehiculo" +
+                    "(Placas,Marca,Modelo,Año,Descripcion, NumSeguro, Vendido, PrecioVenta, Disponible, PrecioRenta)" +
+                    "values('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')",
+                    veh.placas, veh.marca, veh.modelo, veh.anio, veh.descripcion, veh.numSeguro, veh.vendido, veh.precioVenta,
+                    veh.disponible, veh.precioRenta), conn);
+                respuesta = comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                respuesta = 0;
+            }
             cn.CierraConexionBD();
             return respuesta;
         }
@@ -69,16 +78,24 @@ namespace Venta_Renta_Vehículos
             int respuesta = 0;
             Conexion cn = new Conexion();
             SqlConnection conn = cn.ConectaBD();
-            SqlCommand comando = new SqlCommand(string.Format("UPDATE Servicios.Vehiculo SET Placas = '"
-                + veh.placas + "', Marca='" + veh.marca + "', Modelo = '" + veh.modelo +
-                "', Año='" + veh.anio + 
-                "', Descripcion='" + veh.descripcion +
-                "', NumSeguro='" + veh.numSeguro +
-                "', Vendido='" + veh.vendido +
-                "', PrecioVenta='" + veh.precioVenta +
-                "', Disponible='" + veh.disponible +
-                "', PrecioRenta='" + veh.precioRenta + "' WHERE IdVehiculo = " + veh.id), conn);
-            respuesta = comando.ExecuteNonQuery();
+            try
+            {
+                SqlCommand comando = new SqlCommand(string.Format("UPDATE Servicios.Vehiculo SET Placas = '"
+                    + veh.placas + "', Marca='" + veh.marca + "', Modelo = '" + veh.modelo +
+                    "', Año='" + veh.anio +
+                    "', Descripcion='" + veh.descripcion +
+                    "', NumSeguro='" + veh.numSeguro +
+                    "', Vendido='" + veh.vendido +
+                    "', PrecioVenta='" + veh.precioVenta +
+                    "', Disponible='" + veh.disponible +
+                    "', PrecioRenta='" + veh.precioRenta + "' WHERE IdVehiculo = " + veh.id), conn);
+                respuesta = comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                respuesta = 0;
+            }
             cn.CierraConexionBD();
             return respuesta;
         }
@@ -88,9 +105,17 @@ namespace Venta_Renta_Vehículos
             int respuesta = 0;
             Conexion cn = new Conexion();
             SqlConnection conn = cn.ConectaBD();
-            SqlCommand comando = new SqlCommand(string.Format("DELETE FROM Servicios.Vehiculo WHERE IdVehiculo = "
-                + veh.id), conn);
-            respuesta = comando.ExecuteNonQuery();
+            try
+            {
+                SqlCommand comando = new SqlCommand(string.Format("DELETE FROM Servicios.Vehiculo WHERE IdVehiculo = "
+                    + veh.id), conn);
+                respuesta = comando.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                respuesta = 0;
+            }
             cn.CierraConexionBD();
             return respuesta;
         }
