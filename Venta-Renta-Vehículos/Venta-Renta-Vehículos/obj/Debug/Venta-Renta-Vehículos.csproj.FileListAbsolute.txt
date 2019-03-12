@@ -8,3 +8,13 @@ C:\Users\alejo\Dropbox\Administracion de Bases de Datos\SQLServer\Venta-Renta-Ve
 C:\Users\alejo\Dropbox\Administracion de Bases de Datos\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.exe
 C:\Users\alejo\Dropbox\Administracion de Bases de Datos\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.pdb
 C:\Users\alejo\Dropbox\Administracion de Bases de Datos\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta_Renta_Vehículos.Principal.resources
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\bin\Debug\Venta-Renta-Vehículos.exe.config
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\bin\Debug\Venta-Renta-Vehículos.exe
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\bin\Debug\Venta-Renta-Vehículos.pdb
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.csprojResolveAssemblyReference.cache
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta_Renta_Vehículos.Principal.resources
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta_Renta_Vehículos.Properties.Resources.resources
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.csproj.GenerateResource.Cache
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.csproj.CoreCompileInputs.cache
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.exe
+C:\Users\Hernan\iCloudDrive\8 sem\Admin de BD\SQLServer\Venta-Renta-Vehículos\Venta-Renta-Vehículos\obj\Debug\Venta-Renta-Vehículos.pdb

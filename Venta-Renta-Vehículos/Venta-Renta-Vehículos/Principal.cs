@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -72,8 +73,8 @@ namespace Venta_Renta_Vehículos
             veh.marca = textBoxMarca.Text;
             veh.modelo = textBoxModelo.Text;
             veh.anio = textBoxAno.Text;
-            veh.disponible = comboBox1.Text;
-            veh.vendido = comboBox2.Text;
+            veh.disponible = "True";
+            veh.vendido = "False";
             veh.precioVenta = Double.Parse(textBoxVenta.Text);
             veh.precioRenta = Double.Parse(textBoxRenta.Text);
             veh.numSeguro = textBoxNumSeguro.Text;
@@ -97,8 +98,6 @@ namespace Venta_Renta_Vehículos
             veh.marca = textBoxMarca.Text;
             veh.modelo = textBoxModelo.Text;
             veh.anio = textBoxAno.Text;
-            veh.disponible = comboBox1.Text;
-            veh.vendido = comboBox2.Text;
             veh.precioVenta = Double.Parse(textBoxVenta.Text);
             veh.precioRenta = Double.Parse(textBoxRenta.Text);
             veh.numSeguro = textBoxNumSeguro.Text;
@@ -122,8 +121,6 @@ namespace Venta_Renta_Vehículos
             veh.marca = textBoxMarca.Text;
             veh.modelo = textBoxModelo.Text;
             veh.anio = textBoxAno.Text;
-            veh.disponible = comboBox1.Text;
-            veh.vendido = comboBox2.Text;
             veh.precioVenta = Double.Parse(textBoxVenta.Text);
             veh.precioRenta = Double.Parse(textBoxRenta.Text);
             veh.numSeguro = textBoxNumSeguro.Text;
@@ -328,16 +325,35 @@ namespace Venta_Renta_Vehículos
             veh.IdCliente = Int64.Parse(textBoxIdClienteV.Text);
             veh.IdEmpleado = Int64.Parse(textBoxIdEmpleadoV.Text);
             veh.IdVehiculo = Int64.Parse(textBoxIdVehiculoV.Text);
-            veh.FechaVenta = comboBox3.Text+"-"+ comboBox4.Text + "-" + comboBox5.Text;
 
-            if (Venta.Agregar(veh) > 0)
+            Conexion cn = new Conexion();
+            SqlConnection conn = cn.ConectaBD();
+            SqlCommand comando = new SqlCommand(
+                string.Format("SELECT Disponible, Vendido FROM Servicios.Vehiculo WHERE IdVehiculo = " + veh.IdVehiculo), conn);
+            SqlDataReader reader = comando.ExecuteReader();
+            Boolean disponible = false, vendido = false;
+            while (reader.Read())
             {
-                //MessageBox.Show("Bien");
-                dataGridView5.DataSource = venta.muestra();
-                Clear();
+                disponible = reader.GetBoolean(0);
+                vendido = reader.GetBoolean(1);
+
+            }
+            reader.Close();
+
+            if (disponible && !vendido)
+            {
+                if (Venta.Agregar(veh) > 0)
+                {
+                    //MessageBox.Show("Bien");
+                    dataGridView5.DataSource = venta.muestra();
+                    Clear();
+                }
+                else
+                    MessageBox.Show("Mal");
             }
             else
-                MessageBox.Show("Mal");
+                MessageBox.Show("El vehículo no está disponible para la venta");
+            
         }
 
         private void buttonModificarVV_Click(object sender, EventArgs e)
@@ -347,7 +363,7 @@ namespace Venta_Renta_Vehículos
             veh.IdCliente = Int64.Parse(textBoxIdClienteV.Text);
             veh.IdEmpleado = Int64.Parse(textBoxIdEmpleadoV.Text);
             veh.IdVehiculo = Int64.Parse(textBoxIdVehiculoV.Text);
-            veh.FechaVenta = comboBox3.Text + "-" + comboBox4.Text + "-" + comboBox5.Text;
+            
 
             if (Venta.Modificar(veh) > 0)
             {
@@ -366,7 +382,7 @@ namespace Venta_Renta_Vehículos
             veh.IdCliente = Int64.Parse(textBoxIdClienteV.Text);
             veh.IdEmpleado = Int64.Parse(textBoxIdEmpleadoV.Text);
             veh.IdVehiculo = Int64.Parse(textBoxIdVehiculoV.Text);
-            veh.FechaVenta = comboBox3.Text + "-" + comboBox4.Text + "-" + comboBox5.Text;
+            
 
             if (Venta.Eliminar(veh) > 0)
             {
@@ -384,18 +400,38 @@ namespace Venta_Renta_Vehículos
             veh.IdCliente = Int64.Parse(textBox2.Text);
             veh.IdEmpleado = Int64.Parse(textBox1.Text);
             veh.IdVehiculo = Int64.Parse(textBox3.Text);
-            veh.DiaPrestamo = comboBox8.Text + "-" + comboBox7.Text + "-" + comboBox6.Text;
+            
             veh.DiaDevolucion = comboBox11.Text + "-" + comboBox10.Text + "-" + comboBox9.Text;
             //veh.Total = Double.Parse(textBox6.Text);
 
-            if (Renta.Agregar(veh) > 0)
+            DateTime devolucion = Convert.ToDateTime(veh.DiaDevolucion);
+            DateTime prestamo = Convert.ToDateTime(DateTime.Now.ToString("M/d/yyyy"));
+
+            Conexion cn = new Conexion();
+            SqlConnection conn = cn.ConectaBD();
+            SqlCommand comando = new SqlCommand(
+                string.Format("SELECT Disponible FROM Servicios.Vehiculo WHERE IdVehiculo = " + veh.IdVehiculo), conn);
+            SqlDataReader reader = comando.ExecuteReader();
+            Boolean disponible = false;
+            while (reader.Read())
             {
-                //MessageBox.Show("Bien");
-                dataGridView6.DataSource = renta.muestra();
-                Clear();
+                 disponible = reader.GetBoolean(0);
+            }
+            reader.Close();
+
+            if (disponible)
+            {
+                if (Renta.Agregar(veh) > 0 && devolucion > prestamo)
+                {
+                    //MessageBox.Show("Bien");
+                    dataGridView6.DataSource = renta.muestra();
+                    Clear();
+                }
+                else
+                    MessageBox.Show("La fecha de devolución debe ser después del día de hoy.");
             }
             else
-                MessageBox.Show("Mal");
+                MessageBox.Show("El vehículo no está disponible");
         }
 
         private void buttonModificarR_Click(object sender, EventArgs e)
@@ -405,7 +441,7 @@ namespace Venta_Renta_Vehículos
             veh.IdCliente = Int64.Parse(textBox2.Text);
             veh.IdEmpleado = Int64.Parse(textBox1.Text);
             veh.IdVehiculo = Int64.Parse(textBox3.Text);
-            veh.DiaPrestamo = comboBox8.Text + "-" + comboBox7.Text + "-" + comboBox6.Text;
+            
             veh.DiaDevolucion = comboBox11.Text + "-" + comboBox10.Text + "-" + comboBox9.Text;
             //veh.Total = Double.Parse(textBox6.Text);
 
@@ -426,7 +462,7 @@ namespace Venta_Renta_Vehículos
             veh.IdCliente = Int64.Parse(textBox2.Text);
             veh.IdEmpleado = Int64.Parse(textBox1.Text);
             veh.IdVehiculo = Int64.Parse(textBox3.Text);
-            veh.DiaPrestamo = comboBox8.Text + "-" + comboBox7.Text + "-" + comboBox6.Text;
+            
             veh.DiaDevolucion = comboBox11.Text + "-" + comboBox10.Text + "-" + comboBox9.Text;
             //veh.Total = Double.Parse(textBox6.Text);
 
@@ -524,6 +560,62 @@ namespace Venta_Renta_Vehículos
         {
             dataGridView1.DataSource = vehiculo.muestra();
             dataGridView2.DataSource = empleado.muestra();
+
+            labelFechaVenta.Text = DateTime.Now.ToString("d/M/yyyy");
+            labelFechaPrestamo.Text = DateTime.Now.ToString("d/M/yyyy");
+
+            int respuesta = 0;
+            Conexion cn = new Conexion();
+            SqlConnection conn = cn.ConectaBD();
+            SqlCommand comando = new SqlCommand(
+                string.Format("SELECT CONCAT(IdTipo, '_', Tipo) FROM Empleado.Tipo"), conn);
+            SqlDataReader reader = comando.ExecuteReader();
+
+            cbTipo.Items.Clear();
+            while (reader.Read())
+            {
+                cbTipo.Items.Add(reader.GetString(0));
+            }
+            reader.Close();
+
+            SqlCommand comando2 = new SqlCommand(
+                string.Format("SELECT CONCAT(IdVehiculo, '_', Marca, '_', Modelo, ' ' ,Año) FROM Servicios.Vehiculo"), conn);
+            SqlDataReader reader2 = comando2.ExecuteReader();
+            cbVehiculo1.Items.Clear();
+            cbVehiculo2.Items.Clear();
+            while (reader2.Read())
+            {
+                cbVehiculo1.Items.Add(reader2.GetString(0));
+                cbVehiculo2.Items.Add(reader2.GetString(0));
+            }
+            reader2.Close();
+
+            SqlCommand comando3 = new SqlCommand(
+                string.Format("SELECT CONCAT(IdCliente, '_', PrimerNombre, ' ', SegundoNombre, ' ' , ApellidoPaterno, ' ', ApellidoMaterno) FROM Servicios.Cliente"), conn);
+            SqlDataReader reader3 = comando3.ExecuteReader();
+            cbCliente1.Items.Clear();
+            cbCliente2.Items.Clear();
+            while (reader3.Read())
+            {
+                cbCliente1.Items.Add(reader3.GetString(0));
+                cbCliente2.Items.Add(reader3.GetString(0));
+            }
+            reader3.Close();
+
+            SqlCommand comando4 = new SqlCommand(
+                string.Format("SELECT CONCAT(IdEmpleado, '_', PrimerNombre, ' ', SegundoNombre, ' ' , ApellidoPaterno, ' ', ApellidoMaterno) FROM Empleado.Empleado"), conn);
+            SqlDataReader reader4 = comando4.ExecuteReader();
+            cbEmpleado1.Items.Clear();
+            cbEmpleado2.Items.Clear();
+            cbEmpleado4.Items.Clear();
+            while (reader4.Read())
+            {
+                cbEmpleado1.Items.Add(reader4.GetString(0));
+                cbEmpleado2.Items.Add(reader4.GetString(0));
+                cbEmpleado4.Items.Add(reader4.GetString(0));
+            }
+            reader4.Close();
+
             dataGridView4.DataSource = cliente.muestra();
             dataGridView3.DataSource = tipo.muestra();
             dataGridView7.DataSource = entrega.muestra();
@@ -552,8 +644,7 @@ namespace Venta_Renta_Vehículos
             textBoxMarca.Text="";
             textBoxModelo.Text="";
             textBoxAno.Text="";
-            comboBox1.Text="";
-            comboBox2.Text="";
+            cbTipo.Text="";
             textBoxVenta.Text="";
             textBoxRenta.Text="";
             textBoxNumSeguro.Text="";
@@ -582,16 +673,12 @@ namespace Venta_Renta_Vehículos
             textBoxIdClienteV.Text="";
             textBoxIdEmpleadoV.Text="";
             textBoxIdVehiculoV.Text="";
-            comboBox3.Text = "Mes";
-            comboBox4.Text = "Dia";
-            comboBox5.Text="Año";
+            
 
             textBox2.Text="";
             textBox1.Text="";
             textBox3.Text="";
-            comboBox8.Text = "Mes";
-            comboBox7.Text = "Dia";
-            comboBox6.Text="Año";
+            
             comboBox11.Text = "Mes";
             comboBox10.Text = "Dia";
             comboBox9.Text="Año";
@@ -629,9 +716,7 @@ namespace Venta_Renta_Vehículos
             textBox3.Text = dataGridView6.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBox2.Text = dataGridView6.Rows[e.RowIndex].Cells[2].Value.ToString();
             textBox1.Text = dataGridView6.Rows[e.RowIndex].Cells[3].Value.ToString();
-            comboBox8.Text = dataGridView6.Rows[e.RowIndex].Cells[4].Value.ToString().Split('/')[1];
-            comboBox7.Text = dataGridView6.Rows[e.RowIndex].Cells[4].Value.ToString().Split('/')[0];
-            comboBox6.Text = dataGridView6.Rows[e.RowIndex].Cells[4].Value.ToString().Split('/')[2];
+            
             comboBox11.Text = dataGridView6.Rows[e.RowIndex].Cells[5].Value.ToString().Split('/')[1];
             comboBox10.Text = dataGridView6.Rows[e.RowIndex].Cells[5].Value.ToString().Split('/')[0];
             comboBox9.Text = dataGridView6.Rows[e.RowIndex].Cells[5].Value.ToString().Split('/')[2];
@@ -645,9 +730,7 @@ namespace Venta_Renta_Vehículos
             textBoxIdVehiculoV.Text = dataGridView5.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxIdClienteV.Text = dataGridView5.Rows[e.RowIndex].Cells[2].Value.ToString();
             textBoxIdEmpleadoV.Text = dataGridView5.Rows[e.RowIndex].Cells[3].Value.ToString();
-            comboBox3.Text = dataGridView5.Rows[e.RowIndex].Cells[4].Value.ToString().Split('/')[1]; ;
-            comboBox4.Text = dataGridView5.Rows[e.RowIndex].Cells[4].Value.ToString().Split('/')[1]; ;
-            comboBox5.Text = dataGridView5.Rows[e.RowIndex].Cells[4].Value.ToString().Split('/')[1]; ;
+            
         }
 
         private void dataGridView4_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -697,12 +780,68 @@ namespace Venta_Renta_Vehículos
             textBoxMarca.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
             textBoxModelo.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
             textBoxAno.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-            comboBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
-            comboBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[10].Value.ToString();
+            cbTipo.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
+            //comboBox2.Text = dataGridView1.Rows[e.RowIndex].Cells[10].Value.ToString();
             textBoxVenta.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
             textBoxRenta.Text = dataGridView1.Rows[e.RowIndex].Cells[9].Value.ToString();
             textBoxNumSeguro.Text = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
             textBoxDesVeh.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+        }
+
+        private void cbVehiculo2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbVehiculo2.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBox3.Text = id.ToString();
+        }
+
+        private void cbVehiculo1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbVehiculo1.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBoxIdVehiculoV.Text = id.ToString();
+        }
+
+        private void cbCliente1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbCliente1.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBoxIdClienteV.Text = id.ToString();
+        }
+
+        private void cbEmpleado1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbEmpleado1.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBoxIdEmpleadoV.Text = id.ToString();
+        }
+
+        private void cbCliente2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbCliente2.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBox2.Text = id.ToString();
+        }
+
+        private void cbEmpleado2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbEmpleado2.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBox1.Text = id.ToString();
+        }
+
+        private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbTipo.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBox7.Text = id.ToString();
+        }
+
+        private void cbEmpleado4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String id2 = cbEmpleado4.SelectedItem.ToString();
+            var id = id2.ToCharArray()[0];
+            textBoxIdEmpleadoE.Text = id.ToString();
         }
     }
 }

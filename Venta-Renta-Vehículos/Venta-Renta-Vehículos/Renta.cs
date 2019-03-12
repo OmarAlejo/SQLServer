@@ -46,7 +46,7 @@ namespace Venta_Renta_Vehículos
                 SqlCommand comando = new SqlCommand(string.Format("INSERT INTO Servicios.Renta" +
                     "(IdVehiculo,IdCliente,IdEmpleado,DiaPrestamo,DiaDevolucion)" +
                     "values('{0}','{1}','{2}','{3}','{4}')",
-                    ren.IdVehiculo, ren.IdCliente, ren.IdEmpleado, DateTime.Parse(ren.DiaPrestamo).ToShortDateString(),
+                    ren.IdVehiculo, ren.IdCliente, ren.IdEmpleado, DateTime.Now.ToString("M/d/yyyy"), 
                     DateTime.Parse(ren.DiaDevolucion).ToShortDateString()), conn);
                 respuesta = comando.ExecuteNonQuery();
             }
@@ -70,7 +70,6 @@ namespace Venta_Renta_Vehículos
                     "IdVehiculo = '" + ren.IdVehiculo + "', " +
                     "IdCliente='" + ren.IdCliente +
                     "', IdEmpleado = '" + ren.IdEmpleado +
-                    "', DiaPrestamo='" + DateTime.Parse(ren.DiaPrestamo).ToShortDateString() +
                     "', DiaDevolucion='" + DateTime.Parse(ren.DiaDevolucion).ToShortDateString() +
                     "', Total='" + ren.Total + "' WHERE IdRenta   = " + ren.id), conn);
                 respuesta = comando.ExecuteNonQuery();

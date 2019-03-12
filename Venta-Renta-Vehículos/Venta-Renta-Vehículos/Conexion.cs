@@ -13,7 +13,7 @@ namespace Venta_Renta_Vehículos
         SqlConnection conexion;
         public Conexion()
         {
-            conexion = new SqlConnection("Data Source=DESKTOP-PRGA55T\\SQLANGEL; Initial Catalog=VentaRentaVehiculos; Integrated Security=True");
+            conexion = new SqlConnection("Data Source=HERNANCASILLAS\\SQLSERVER; Initial Catalog=VentaRentaVehiculos; Integrated Security=True");
         }
 
         public SqlConnection ConectaBD()

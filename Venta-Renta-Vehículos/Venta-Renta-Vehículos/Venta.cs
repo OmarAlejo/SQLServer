@@ -40,7 +40,7 @@ namespace Venta_Renta_Vehículos
                 SqlCommand comando = new SqlCommand(string.Format("INSERT INTO Servicios.Venta" +
                     "(IdVehiculo,IdCliente,IdEmpleado,FechaVenta)" +
                     "values('{0}','{1}','{2}','{3}')",
-                    ven.IdVehiculo, ven.IdCliente, ven.IdEmpleado, DateTime.Parse(ven.FechaVenta).ToShortDateString()), conn);
+                    ven.IdVehiculo, ven.IdCliente, ven.IdEmpleado, DateTime.Now.ToString("M/d/yyyy")), conn);
                 respuesta = comando.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -63,7 +63,7 @@ namespace Venta_Renta_Vehículos
                     "IdVehiculo = '" + ven.IdVehiculo + "', " +
                     "IdCliente='" + ven.IdCliente +
                     "', IdEmpleado = '" + ven.IdEmpleado +
-                    "', FechaVenta='" + DateTime.Parse(ven.FechaVenta).ToShortDateString() + "' WHERE IdVenta   = " + ven.id), conn);
+                    "' WHERE IdVenta   = " + ven.id), conn);
                 respuesta = comando.ExecuteNonQuery();
             }
             catch (Exception e)

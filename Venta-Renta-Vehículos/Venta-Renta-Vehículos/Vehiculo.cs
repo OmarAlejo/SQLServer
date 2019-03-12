@@ -85,9 +85,7 @@ namespace Venta_Renta_Vehículos
                     "', Año='" + veh.anio +
                     "', Descripcion='" + veh.descripcion +
                     "', NumSeguro='" + veh.numSeguro +
-                    "', Vendido='" + veh.vendido +
                     "', PrecioVenta='" + veh.precioVenta +
-                    "', Disponible='" + veh.disponible +
                     "', PrecioRenta='" + veh.precioRenta + "' WHERE IdVehiculo = " + veh.id), conn);
                 respuesta = comando.ExecuteNonQuery();
             }
