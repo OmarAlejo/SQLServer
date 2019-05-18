@@ -98,7 +98,7 @@ namespace Venta_Renta_Vehículos
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("No se puede eliminar un empleado");
                 respuesta = 0;
             }
             cn.CierraConexionBD();

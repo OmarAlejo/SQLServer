@@ -111,7 +111,7 @@ namespace Venta_Renta_Vehículos
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("No se puede eliminar un vehículo que ya ha sido vendido/rentado");
                 respuesta = 0;
             }
             cn.CierraConexionBD();

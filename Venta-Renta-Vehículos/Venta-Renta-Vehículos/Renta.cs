@@ -96,7 +96,7 @@ namespace Venta_Renta_Vehículos
             }
             catch(Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("No se puede eliminar una renta");
                 respuesta = 0;
             }
             cn.CierraConexionBD();

@@ -86,8 +86,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView1.DataSource = vehiculo.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonModificarV_Click(object sender, EventArgs e)
@@ -109,8 +108,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView1.DataSource = vehiculo.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+         
         }
 
         private void buttonEliminarV_Click(object sender, EventArgs e)
@@ -132,8 +130,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView1.DataSource = vehiculo.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonAgregarE_Click(object sender, EventArgs e)
@@ -153,8 +150,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView2.DataSource = empleado.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+
         }
 
         private void buttonModificarE_Click(object sender, EventArgs e)
@@ -175,8 +171,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView2.DataSource = empleado.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonEliminarE_Click(object sender, EventArgs e)
@@ -197,8 +192,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView2.DataSource = empleado.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonAgregarT_Click(object sender, EventArgs e)
@@ -213,8 +207,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView3.DataSource = tipo.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonModificarT_Click(object sender, EventArgs e)
@@ -230,8 +223,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView3.DataSource = tipo.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+           
         }
 
         private void buttonEliminarT_Click(object sender, EventArgs e)
@@ -247,8 +239,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView3.DataSource = tipo.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonAgregarC_Click(object sender, EventArgs e)
@@ -269,8 +260,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView4.DataSource = cliente.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonModificarC_Click(object sender, EventArgs e)
@@ -292,8 +282,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView4.DataSource = cliente.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonEliminarC_Click(object sender, EventArgs e)
@@ -315,8 +304,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView4.DataSource = cliente.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonAgregarVV_Click(object sender, EventArgs e)
@@ -348,8 +336,7 @@ namespace Venta_Renta_Vehículos
                     dataGridView5.DataSource = venta.muestra();
                     Clear();
                 }
-                else
-                    MessageBox.Show("Mal");
+                
             }
             else
                 MessageBox.Show("El vehículo no está disponible para la venta");
@@ -371,27 +358,34 @@ namespace Venta_Renta_Vehículos
                 dataGridView5.DataSource = venta.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonEliminarVV_Click(object sender, EventArgs e)
         {
-            Venta veh = new Venta();
-            veh.id = venta.id;
-            veh.IdCliente = Int64.Parse(textBoxIdClienteV.Text);
-            veh.IdEmpleado = Int64.Parse(textBoxIdEmpleadoV.Text);
-            veh.IdVehiculo = Int64.Parse(textBoxIdVehiculoV.Text);
-            
-
-            if (Venta.Eliminar(veh) > 0)
+            DialogResult dialogResult = MessageBox.Show("Desea eliminar una venta?", "Eliminar Venta", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                //MessageBox.Show("Bien");
-                dataGridView5.DataSource = venta.muestra();
-                Clear();
+
+                Venta veh = new Venta();
+                veh.id = venta.id;
+                veh.IdCliente = Int64.Parse(textBoxIdClienteV.Text);
+                veh.IdEmpleado = Int64.Parse(textBoxIdEmpleadoV.Text);
+                veh.IdVehiculo = Int64.Parse(textBoxIdVehiculoV.Text);
+
+
+                if (Venta.Eliminar(veh) > 0)
+                {
+                    //MessageBox.Show("Bien");
+                    dataGridView5.DataSource = venta.muestra();
+                    Clear();
+                }
             }
-            else
-                MessageBox.Show("Mal");
+            else if (dialogResult == DialogResult.No)
+            {
+            }
+            
+            
         }
 
         private void buttonAgregarR_Click(object sender, EventArgs e)
@@ -451,8 +445,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView6.DataSource = renta.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonEliminarR_Click(object sender, EventArgs e)
@@ -472,8 +465,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView6.DataSource = renta.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+         
         }
 
         private void buttonAgregarEE_Click(object sender, EventArgs e)
@@ -492,8 +484,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView7.DataSource = entrega.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonModificarEE_Click(object sender, EventArgs e)
@@ -513,8 +504,7 @@ namespace Venta_Renta_Vehículos
                 dataGridView7.DataSource = entrega.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
+            
         }
 
         private void buttonEliminarEE_Click(object sender, EventArgs e)
@@ -534,8 +524,6 @@ namespace Venta_Renta_Vehículos
                 dataGridView7.DataSource = entrega.muestra();
                 Clear();
             }
-            else
-                MessageBox.Show("Mal");
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -791,56 +779,64 @@ namespace Venta_Renta_Vehículos
         private void cbVehiculo2_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbVehiculo2.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBox3.Text = id.ToString();
         }
 
         private void cbVehiculo1_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbVehiculo1.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBoxIdVehiculoV.Text = id.ToString();
         }
 
         private void cbCliente1_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbCliente1.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBoxIdClienteV.Text = id.ToString();
         }
 
         private void cbEmpleado1_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbEmpleado1.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBoxIdEmpleadoV.Text = id.ToString();
         }
 
         private void cbCliente2_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbCliente2.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBox2.Text = id.ToString();
         }
 
         private void cbEmpleado2_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbEmpleado2.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBox1.Text = id.ToString();
         }
 
         private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbTipo.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBox7.Text = id.ToString();
         }
 
         private void cbEmpleado4_SelectedIndexChanged(object sender, EventArgs e)
         {
             String id2 = cbEmpleado4.SelectedItem.ToString();
-            var id = id2.ToCharArray()[0];
+            String[] arreglo = id2.Split('_');
+            var id = arreglo[0];
             textBoxIdEmpleadoE.Text = id.ToString();
         }
     }
